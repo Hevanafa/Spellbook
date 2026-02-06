@@ -13,7 +13,8 @@ uses
   LCLType, FGL;
 
 type
-  TLetterFreqMap = specialize TFPGMap<char, smallint>;
+  TLetterFreq = array['A'..'Z'] of byte;
+  TDictFrequencyMap = specialize TFPGMap<string, TLetterFreq>;
 
   { TForm1 }
 
@@ -28,9 +29,9 @@ type
 
   private
     rawWordlist: TStringList;
-    dictFrequencyMap: specialize TFPGMap<string, TLetterFreqMap>;
+    dictFrequencyMap: TDictFrequencyMap;
 
-    function makeFrequencyMap(const word: string): TLetterFreqMap;
+    function makeFrequencyMap(const word: string): TLetterFreq;
     procedure performSearch;
 
   public
@@ -46,46 +47,32 @@ implementation
 
 { TForm1 }
 
-function TForm1.makeFrequencyMap(const word: string): TLetterFreqMap;
+function TForm1.makeFrequencyMap(const word: string): TLetterFreq;
 var
   c: char;
-  count: smallint;
 begin
-  result := TLetterFreqMap.create;
-  count := 0;
+  fillchar(result, sizeof(result), 0);
 
   for c in word do
-    if result.trygetdata(c, count) then begin
-      result[c] := count + 1
-    end else
-      result.Add(c, 1);
+    if c in ['A'..'Z'] then
+      inc(result[c]);
 end;
 
-function canMakeWord(const inputFreq, wordFreq: TLetterFreqMap): boolean;
+function canMakeWord(const inputFreq, wordFreq: TLetterFreq): boolean;
 var
-  a: SmallInt;
   c: char;
-  wordCount, inputCount: smallint;
 begin
   result := true;
 
-  for a:=0 to wordFreq.count - 1 do begin
-    c := wordFreq.keys[a];
-    wordCount := wordFreq[c];
-
-    if not inputFreq.TryGetData(c, inputCount) then begin
+  for c:='A' to 'Z' do
+    if wordFreq[c] > inputFreq[c] then begin
       result := false; exit
     end;
-
-    if inputCount < wordCount then begin
-      result := false; exit
-    end;
-  end;
 end;
 
 procedure TForm1.performSearch;
 var
-  inputFreq: TLetterFreqMap;
+  inputFreq: TLetterFreq;
   idx: longword;
   term: string;
   resultWordlist: TStringList;
@@ -95,7 +82,7 @@ begin
   application.ProcessMessages;  { Force UI update }
 
   inputFreq := makeFrequencyMap(uppercase(InputEdit.text));
-  ResultMemo.lines.add('Created inputFreq, count: ' + inttostr(inputFreq.count));
+  { ResultMemo.lines.add('Created inputFreq, count: ' + inttostr(inputFreq.count)); }
   application.ProcessMessages;
 
   resultWordlist := TStringList.create;
@@ -155,7 +142,7 @@ begin
   ResultMemo.Text := 'Loaded ' + inttostr(rawWordlist.count) + ' words';
 
   { Process the frequency list }
-  dictFrequencyMap := specialize TFPGMap<string, TLetterFreqMap>.create;
+  dictFrequencyMap := TDictFrequencyMap.create;
   for term in rawWordlist do
     dictFrequencyMap.add(term, makeFrequencyMap(term));
 end;
