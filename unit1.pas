@@ -2,7 +2,7 @@ unit Unit1;
 
 {$Mode ObjFPC}
 {$J-}
-{$H-}
+{$H+}
 {$Notes OFF}
 
 interface
@@ -63,25 +63,44 @@ end;
 
 procedure TForm1.performSearch;
 var
-  inputFreqList: TLetterFreqMap;
+  inputFreq, termFreq: TLetterFreqMap;
   c: Char;
+  idx: longword;
+  a: word;
+  term: string;
+  skipWord: boolean;
+  resultWordlist: TStringList;
 begin
-  inputFreqList := TLetterFreqMap.create;
+  inputFreq := makeFrequencyMap(InputEdit.text);
+  resultWordlist := TStringList.create;
 
   { ResultMemo.Text := UpperCase(InputEdit.text) }
 
-  for c in InputEdit.text do begin
-    ;
+  for idx:=0 to dictFrequencyMap.Count - 1 do begin
+    term := dictFrequencyMap.keys[idx];
+    termFreq := dictFrequencyMap.data[idx];
+
+    skipWord := false;
+
+    for a:=0 to termFreq.count - 1 do begin
+      c := termFreq.keys[a];
+
+      if inputFreq.IndexOf(c) < 0 then begin
+        skipWord := true;
+        break
+      end;
+    end;
   end;
 
-  inputFreqList.clear;
-  FreeAndNil(inputFreqList);
+  ResultMemo.Text := resultWordlist.text;
+
+  FreeAndNil(inputFreq);
+  FreeAndNil(resultWordlist);
 end;
 
 procedure TForm1.InputEditKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
 begin
-  if key = VK_RETURN then
-    performSearch;
+  if key = VK_RETURN then performSearch;
 end;
 
 procedure TForm1.SearchButtonClick(Sender: TObject);
