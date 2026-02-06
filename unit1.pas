@@ -28,8 +28,9 @@ type
 
   private
     rawWordlist: TStringList;
-    frequencyMap: specialize TFPGMap<string, TLetterFreqMap>;
+    dictFrequencyMap: specialize TFPGMap<string, TLetterFreqMap>;
 
+    function makeFrequencyMap(const word: string): TLetterFreqMap;
     procedure performSearch;
 
   public
@@ -45,9 +46,36 @@ implementation
 
 { TForm1 }
 
-procedure TForm1.performSearch;
+function TForm1.makeFrequencyMap(const word: string): TLetterFreqMap;
+var
+  c: char;
+  count: smallint;
 begin
-  ResultMemo.Text := UpperCase(InputEdit.text)
+  result := TLetterFreqMap.create;
+  count := 0;
+
+  for c in word do
+    if result.trygetdata(c, count) then begin
+      result[c] := count + 1
+    end else
+      result.Add(c, 1);
+end;
+
+procedure TForm1.performSearch;
+var
+  inputFreqList: TLetterFreqMap;
+  c: Char;
+begin
+  inputFreqList := TLetterFreqMap.create;
+
+  { ResultMemo.Text := UpperCase(InputEdit.text) }
+
+  for c in InputEdit.text do begin
+    ;
+  end;
+
+  inputFreqList.clear;
+  FreeAndNil(inputFreqList);
 end;
 
 procedure TForm1.InputEditKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
@@ -66,6 +94,7 @@ var
   f: text;
   line, term: string;
   c: char;
+  count: smallint;
   newFreqMapEntry: TLetterFreqMap;
 begin
   rawWordlist := TStringList.create;
@@ -90,18 +119,9 @@ begin
   ResultMemo.Text := 'Loaded ' + inttostr(rawWordlist.count) + ' words';
 
   { Process the frequency list }
-  frequencyMap := specialize TFPGMap<string, TLetterFreqMap>.create;
-  for term in rawWordlist do begin
-    newFreqMapEntry := TLetterFreqMap.create;
-
-    for c in term do
-      if newFreqMapEntry.indexOf(c) >= 0 then begin
-        newFreqMapEntry[c] := newFreqMapEntry[c] + 1
-      end else
-        newFreqMapEntry.Add(c, 1);
-
-    frequencyMap.Add(term, newFreqMapEntry);
-  end;
+  dictFrequencyMap := specialize TFPGMap<string, TLetterFreqMap>.create;
+  for term in rawWordlist do
+    dictFrequencyMap.add(term, makeFrequencyMap(term));
 end;
 
 procedure TForm1.FormClose(Sender: TObject; var CloseAction: TCloseAction);
