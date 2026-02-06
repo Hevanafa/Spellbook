@@ -90,12 +90,22 @@ var
   term: string;
   resultWordlist: TStringList;
 begin
+  ResultMemo.Lines.add('Starting search...');
+  ResultMemo.Lines.Add('Dict count: ' + IntToStr(dictFrequencyMap.Count));
+  application.ProcessMessages;  { Force UI update }
+
   inputFreq := makeFrequencyMap(uppercase(InputEdit.text));
+  ResultMemo.lines.add('Created inputFreq, count: ' + inttostr(inputFreq.count));
+  application.ProcessMessages;
+
   resultWordlist := TStringList.create;
 
-  { ResultMemo.Text := UpperCase(InputEdit.text) }
-
   for idx:=0 to dictFrequencyMap.Count - 1 do begin
+    if idx mod 1000 = 0 then begin
+      ResultMemo.lines.add('Progress: ' + inttostr(idx));
+      application.ProcessMessages
+    end;
+
     term := dictFrequencyMap.keys[idx];
 
     if canMakeWord(inputFreq, dictFrequencyMap[term]) then
@@ -148,8 +158,6 @@ begin
   dictFrequencyMap := specialize TFPGMap<string, TLetterFreqMap>.create;
   for term in rawWordlist do
     dictFrequencyMap.add(term, makeFrequencyMap(term));
-
-  ResultMemo.Lines.Add('Dict count: ' + IntToStr(dictFrequencyMap.Count));
 end;
 
 procedure TForm1.FormClose(Sender: TObject; var CloseAction: TCloseAction);
