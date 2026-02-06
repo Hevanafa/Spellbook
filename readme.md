@@ -19,3 +19,4 @@ This project is a remake of my older Spellbook written in C# from April 2020, no
 ## Credits
 
 - The word list uses `TWL06.txt` obtained from [Peter Norvig's website](https://norvig.com/ngrams/)
+- [Droid Sans Font](https://www.1001fonts.com/droid-sans-font.html)
