@@ -203,6 +203,7 @@ end;
 procedure TForm1.FormClose(Sender: TObject; var CloseAction: TCloseAction);
 begin
   FreeAndNil(rawWordlist);
+  freeandnil(dictFrequencyMap);
 end;
 
 end.
