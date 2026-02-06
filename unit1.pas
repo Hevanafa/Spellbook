@@ -113,19 +113,16 @@ var
   startPos, textLen: longint;
 begin
   startPos := ResultMemo.GetTextLen;
-  ResultMemo.lines.add(txt);
-  textLen := ResultMemo.GetTextLen - startPos;
+  ResultMemo.SelStart := startPos;
+  ResultMemo.SelLength := 0;
 
-  ResultMemo.SetRangeColor(startPos, textLen, clRed);
+  ResultMemo.SelText := txt;
+  textLen := ResultMemo.SelLength;
 
-  {
-  ResultMemo.SetRangeParams(
-    0, ResultMemo.GetTextLen,
-    [tmm_Color],
-    '', 0, clRed,
-    [], []
-  );
-  }
+  ResultMemo.SetRangeColor(startPos, textLen, clGreen);
+
+  ResultMemo.SelStart := ResultMemo.GetTextLen;
+  ResultMemo.SelLength := 0
 end;
 
 procedure TForm1.performSearch;
