@@ -2,9 +2,9 @@
 
 ![preview](./preview.png)
 
-A remake of my older Spellbook in C# from April 2020, now written in Object Pascal with Lazarus
-
 A word unscrambler utility that can help with some word games that involve scrambled letters
+
+This project is a remake of my older Spellbook written in C# from April 2020, now written in Object Pascal with Lazarus
 
 ## Requirements
 
@@ -15,3 +15,7 @@ A word unscrambler utility that can help with some word games that involve scram
 - Open `project.lpi` with Lazarus
 - Change the build mode to **Release**
 - Click **Run** (also by pressing `F9`)
+
+## Credits
+
+- The word list uses `TWL06.txt` obtained from [Peter Norvig's website](https://norvig.com/ngrams/)
