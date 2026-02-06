@@ -77,13 +77,13 @@ var
 begin
   result := true;
 
-  for c:='A' to 'Z' do begin
+  for c:='A' to 'Z' do
     if wordFreq[c] > inputFreq[c] then begin
       result := false; exit
     end;
-  end;
 end;
 
+{ Compare length, descending, used with result word list }
 function cmpLengthDesc(list: TStringList; a, b: longint): longint;
 begin
   result := length(list[b]) - length(list[a]);
@@ -188,7 +188,7 @@ begin
     filtered := resultWordlist.filter(@filterByLength);
 
     if filtered.count > 0 then begin
-      appendHeading(format('%d Letters:', [len]));
+      appendHeading(format('%d Letters', [len]));
       appendText(trimRight(filtered.text));
       appendText('')
     end;
