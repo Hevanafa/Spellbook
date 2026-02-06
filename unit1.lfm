@@ -6,6 +6,8 @@ object Form1: TForm1
   Caption = 'Form1'
   ClientHeight = 240
   ClientWidth = 268
+  OnClose = FormClose
+  OnCreate = FormCreate
   object InputEdit: TEdit
     Left = 8
     Height = 23
