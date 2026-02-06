@@ -3,7 +3,7 @@ unit Unit1;
 {$Mode ObjFPC}
 {$J-}
 {$H+}
-{Notes OFF}
+{$Notes OFF}
 
 interface
 
@@ -90,7 +90,7 @@ var
   term: string;
   resultWordlist: TStringList;
 begin
-  inputFreq := makeFrequencyMap(InputEdit.text);
+  inputFreq := makeFrequencyMap(uppercase(InputEdit.text));
   resultWordlist := TStringList.create;
 
   { ResultMemo.Text := UpperCase(InputEdit.text) }
@@ -148,6 +148,8 @@ begin
   dictFrequencyMap := specialize TFPGMap<string, TLetterFreqMap>.create;
   for term in rawWordlist do
     dictFrequencyMap.add(term, makeFrequencyMap(term));
+
+  ResultMemo.Lines.Add('Dict count: ' + IntToStr(dictFrequencyMap.Count));
 end;
 
 procedure TForm1.FormClose(Sender: TObject; var CloseAction: TCloseAction);
