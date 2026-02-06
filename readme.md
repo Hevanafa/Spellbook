@@ -10,6 +10,11 @@ This project is a remake of my older Spellbook written in C# from April 2020, no
 
 - Lazarus IDE v3.6
 
+### Online Packages
+
+- [RichMemo](https://wiki.freepascal.org/RichMemo) widget
+- BGRAControls
+
 ## Building
 
 - Open `project.lpi` with Lazarus
