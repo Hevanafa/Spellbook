@@ -3,7 +3,7 @@ unit Unit1;
 {$Mode ObjFPC}
 {$J-}
 {$H+}
-{$Notes OFF}
+{Notes OFF}
 
 interface
 
@@ -61,6 +61,28 @@ begin
       result.Add(c, 1);
 end;
 
+function canMakeWord(const inputFreq, wordFreq: TLetterFreqMap): boolean;
+var
+  a: SmallInt;
+  c: char;
+  wordCount, inputCount: smallint;
+begin
+  result := true;
+
+  for a:=0 to wordFreq.count - 1 do begin
+    c := wordFreq.keys[a];
+    wordCount := wordFreq[c];
+
+    if not inputFreq.TryGetData(c, inputCount) then begin
+      result := false; exit
+    end;
+
+    if inputCount < wordCount then begin
+      result := false; exit
+    end;
+  end;
+end;
+
 procedure TForm1.performSearch;
 var
   inputFreq, termFreq: TLetterFreqMap;
@@ -78,18 +100,9 @@ begin
 
   for idx:=0 to dictFrequencyMap.Count - 1 do begin
     term := dictFrequencyMap.keys[idx];
-    termFreq := dictFrequencyMap.data[idx];
 
-    skipWord := false;
-
-    for a:=0 to termFreq.count - 1 do begin
-      c := termFreq.keys[a];
-
-      if inputFreq.IndexOf(c) < 0 then begin
-        skipWord := true;
-        break
-      end;
-    end;
+    if canMakeWord(inputFreq, dictFrequencyMap[term]) then
+      resultWordlist.Add(term);
   end;
 
   ResultMemo.Text := resultWordlist.text;
