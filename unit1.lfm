@@ -31,8 +31,8 @@ object Form1: TForm1
     Left = 8
     Height = 15
     Top = 240
-    Width = 88
-    Caption = 'BenchmarkLabel'
+    Width = 53
+    Caption = 'Welcome!'
   end
   object ResultMemo: TRichMemo
     Left = 8

@@ -96,30 +96,30 @@ procedure TForm1.appendHeading(const txt: string);
 var
   startPos, textLen: longint;
 begin
-  startPos := length(ResultMemo.text);
-  ResultMemo.lines.add(txt);
-  textLen := length(txt) + length(LineEnding);
+  ResultMemo.SelStart := ResultMemo.GetTextLen;
+  ResultMemo.SelLength := 0;
+
+  ResultMemo.SelText := txt + LineEnding;
 
   ResultMemo.SetRangeParams(
-    startPos, textLen,
+    ResultMemo.SelStart, ResultMemo.SelLength,
     [tmm_Styles, tmm_Color],
     '', 0, clGreen,
     [fsBold], []
   );
+
+  ResultMemo.SelStart := ResultMemo.GetTextLen;
+  ResultMemo.SelLength := 0;
 end;
 
 procedure TForm1.appendText(const txt: string);
-var
-  startPos, textLen: longint;
 begin
-  startPos := ResultMemo.GetTextLen;
-  ResultMemo.SelStart := startPos;
+  ResultMemo.SelStart := ResultMemo.GetTextLen;
   ResultMemo.SelLength := 0;
 
-  ResultMemo.SelText := txt;
-  textLen := ResultMemo.SelLength;
+  ResultMemo.SelText := txt + LineEnding;
 
-  ResultMemo.SetRangeColor(startPos, textLen, clGreen);
+  ResultMemo.SetRangeColor(ResultMemo.SelStart, ResultMemo.SelLength, clGreen);
 
   ResultMemo.SelStart := ResultMemo.GetTextLen;
   ResultMemo.SelLength := 0
@@ -177,9 +177,8 @@ begin
 
     if filtered.count > 0 then begin
       appendHeading(format('%d Letters:', [len]));
-
-      ResultMemo.Lines.AddStrings(filtered);
-      ResultMemo.lines.Add('');
+      appendText(trimRight(filtered.text));
+      appendText('')
     end;
 
     filtered.free
