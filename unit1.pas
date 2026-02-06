@@ -71,6 +71,14 @@ begin
   end;
 end;
 
+function cmpLengthDesc(list: TStringList; a, b: longint): longint;
+begin
+  result := length(list[b]) - length(list[a]);
+
+  if result = 0 then
+    result := compareText(list[a], list[b]);
+end;
+
 procedure TForm1.performSearch;
 var
   inputFreq: TLetterFreq;
@@ -105,6 +113,7 @@ begin
   ResultMemo.lines.add('');
 
   startTime := now;
+  resultWordlist.CustomSort(@cmpLengthDesc);
   ResultMemo.Lines.AddStrings(resultWordlist.text);
   ResultMemo.lines.add('Render time: ' + IntToStr(MilliSecondsBetween(now, startTime)) + 'ms');
 
