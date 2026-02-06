@@ -251,6 +251,14 @@ begin
   font.name := 'Droid Sans';
   font.size := 10;
 
+  BenchmarkLabel.font.name := font.name;
+  BenchmarkLabel.font.size := font.size;
+
+  SearchButton.StateNormal.FontEx.name := font.name;
+  SearchButton.Font.size := font.size;
+  SearchButton.StateClicked.FontEx.name := font.name;
+  SearchButton.StateHover.FontEx.name := font.name;
+
   { Init app state }
   rawWordlist := TStringList.create;
   ResultMemo.lines.clear;

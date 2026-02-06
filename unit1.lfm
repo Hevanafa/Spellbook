@@ -30,6 +30,7 @@ object Form1: TForm1
     BorderStyle = bsNone
     Color = 3880757
     HideSelection = False
+    ReadOnly = True
     ScrollBars = ssVertical
     TabOrder = 1
     ZoomFactor = 1
