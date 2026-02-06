@@ -10,7 +10,7 @@ interface
 uses
   Classes, SysUtils, Forms, Controls,
   Graphics, Dialogs, StdCtrls,
-  LCLType, FGL;
+  DateUtils, LCLType, FGL;
 
 type
   TLetterFreq = array['A'..'Z'] of byte;
@@ -101,10 +101,12 @@ begin
   end;
 
   ResultMemo.lines.clear;
-  ResultMemo.Lines.add('Search completed in ' + FormatDateTime('n:ss.zzz', now - startTime) + 's');
+  ResultMemo.Lines.add('Search time: ' + inttostr(MilliSecondsBetween(now, startTime)) + 'ms');
   ResultMemo.lines.add('');
 
+  startTime := now;
   ResultMemo.Lines.AddStrings(resultWordlist.text);
+  ResultMemo.lines.add('Render time: ' + IntToStr(MilliSecondsBetween(now, startTime)) + 'ms');
 
   { FreeAndNil(inputFreq); }
   FreeAndNil(resultWordlist);
