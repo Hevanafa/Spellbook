@@ -1,0 +1,7 @@
+# Build stuff
+*.exe
+
+# Lazarus stuff
+backup/
+lib/
+*.lps
