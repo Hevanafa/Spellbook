@@ -76,7 +76,9 @@ var
   idx: longword;
   term: string;
   resultWordlist: TStringList;
+  startTime: TDateTime;
 begin
+  startTime := now;
   ResultMemo.Lines.add('Starting search...');
   ResultMemo.Lines.Add('Dict count: ' + IntToStr(dictFrequencyMap.Count));
   application.ProcessMessages;  { Force UI update }
@@ -99,9 +101,11 @@ begin
       resultWordlist.Add(term);
   end;
 
-  ResultMemo.Text := resultWordlist.text;
+  ResultMemo.lines.clear;
+  ResultMemo.Lines.add('Search completed in ' + FormatDateTime('ss.zzz', now - startTime) + 's');
+  ResultMemo.Lines.AddStrings(resultWordlist.text);
 
-  FreeAndNil(inputFreq);
+  { FreeAndNil(inputFreq); }
   FreeAndNil(resultWordlist);
 end;
 
