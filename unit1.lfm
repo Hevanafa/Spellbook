@@ -2,48 +2,44 @@ object Form1: TForm1
   Left = 1850
   Height = 357
   Top = 250
-  Width = 411
+  Width = 288
   BorderIcons = [biSystemMenu, biMinimize]
   BorderStyle = bsSingle
   Caption = 'Spellbook - By Hevanafa (Feb 2026)'
   ClientHeight = 357
-  ClientWidth = 411
+  ClientWidth = 288
   Color = 1052174
   Font.Color = clWhite
   KeyPreview = True
   OnClose = FormClose
   OnCreate = FormCreate
-  object InputEdit: TEdit
-    Left = 8
-    Height = 23
-    Top = 8
-    Width = 160
-    TabOrder = 0
-    OnKeyDown = InputEditKeyDown
-  end
   object BenchmarkLabel: TLabel
     Left = 8
     Height = 15
-    Top = 304
+    Top = 272
     Width = 53
     Caption = 'Welcome!'
+    Font.Color = clWhite
     ParentFont = False
   end
   object ResultMemo: TRichMemo
     Left = 8
     Height = 194
     Top = 64
-    Width = 243
+    Width = 267
+    BorderStyle = bsNone
+    Color = 3880757
     HideSelection = False
     ScrollBars = ssVertical
-    TabOrder = 1
+    TabOrder = 0
     ZoomFactor = 1
   end
   object SearchButton: TBCButton
-    Left = 176
-    Height = 33
+    Left = 192
+    Height = 41
     Top = 8
     Width = 83
+    StateClicked.Background.Color = 6942887
     StateClicked.Background.Gradient1.StartColor = 8404992
     StateClicked.Background.Gradient1.EndColor = 4194304
     StateClicked.Background.Gradient1.GradientType = gtRadial
@@ -59,7 +55,7 @@ object Form1: TForm1
     StateClicked.Background.Gradient2.Point2XPercent = 0
     StateClicked.Background.Gradient2.Point2YPercent = 100
     StateClicked.Background.Gradient1EndPercent = 100
-    StateClicked.Background.Style = bbsGradient
+    StateClicked.Background.Style = bbsColor
     StateClicked.Border.Style = bboNone
     StateClicked.FontEx.Color = 16770790
     StateClicked.FontEx.FontQuality = fqSystemClearType
@@ -68,6 +64,7 @@ object Form1: TForm1
     StateClicked.FontEx.ShadowOffsetX = 1
     StateClicked.FontEx.ShadowOffsetY = 1
     StateClicked.FontEx.Style = [fsBold]
+    StateHover.Background.Color = 6942887
     StateHover.Background.Gradient1.StartColor = 16744448
     StateHover.Background.Gradient1.EndColor = 8404992
     StateHover.Background.Gradient1.GradientType = gtRadial
@@ -83,7 +80,7 @@ object Form1: TForm1
     StateHover.Background.Gradient2.Point2XPercent = 0
     StateHover.Background.Gradient2.Point2YPercent = 100
     StateHover.Background.Gradient1EndPercent = 100
-    StateHover.Background.Style = bbsGradient
+    StateHover.Background.Style = bbsColor
     StateHover.Border.Style = bboNone
     StateHover.FontEx.Color = clWhite
     StateHover.FontEx.FontQuality = fqSystemClearType
@@ -130,5 +127,37 @@ object Form1: TForm1
     RoundingDropDown.RoundY = 1
     TextApplyGlobalOpacity = False
     MemoryUsage = bmuLow
+  end
+  object InputEdit: TBCMaterialEdit
+    Left = 8
+    Height = 42
+    Top = 8
+    Width = 178
+    AccentColor = clHighlight
+    Caption = 'Unscramble'
+    Color = 3880757
+    DisabledColor = 12103592
+    DoubleBuffered = True
+    EditLabel.Height = 15
+    EditLabel.Width = 168
+    EditLabel.Caption = 'Unscramble'
+    EditLabel.ParentFont = False
+    EditLabel.Font.Color = 12103592
+    EditLabel.Font.Style = [fsBold]
+    ParentFont = True
+    TabOrder = 1
+    OnKeyDown = InputEditKeyDown
+    Edit.Left = 5
+    Edit.Height = 15
+    Edit.Top = 22
+    Edit.Width = 168
+    Edit.Align = alBottom
+    Edit.BorderSpacing.Left = 4
+    Edit.BorderSpacing.Right = 4
+    Edit.BorderSpacing.Bottom = 4
+    Edit.BorderStyle = bsNone
+    Edit.Color = 3880757
+    Edit.TabOrder = 0
+    Edit.OnKeyDown = InputEditKeyDown
   end
 end

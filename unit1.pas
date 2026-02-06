@@ -12,7 +12,7 @@ uses
   Graphics, Dialogs, StdCtrls,
   DateUtils, LCLType, LCLIntf,
   RichMemo, FGL,
-  BCButton, BCTypes, BCListBox;
+  BCButton, BCTypes, BCListBox, BCMaterialEdit, BGRACustomDrawn;
 
 type
   TLetterFreq = array['A'..'Z'] of byte;
@@ -21,13 +21,13 @@ type
   { TForm1 }
 
   TForm1 = class(TForm)
+    InputEdit: TBCMaterialEdit;
     SearchButton: TBCButton;
     BenchmarkLabel: TLabel;
     ResultMemo: TRichMemo;
-    InputEdit: TEdit;
+    procedure InputEditKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure FormClose(Sender: TObject; var CloseAction: TCloseAction);
     procedure FormCreate(Sender: TObject);
-    procedure InputEditKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure SearchButtonClick(Sender: TObject);
 
   private
@@ -112,7 +112,7 @@ begin
   ResultMemo.SetRangeParams(
     ResultMemo.SelStart, ResultMemo.SelLength,
     [tmm_Styles, tmm_Color],
-    '', 0, TColor($9C5A00),
+    '', 0, TColor($69F0A7),
     [fsBold], []
   );
 
@@ -127,7 +127,9 @@ begin
 
   ResultMemo.SelText := txt + LineEnding;
 
-  ResultMemo.SetRangeColor(ResultMemo.SelStart, ResultMemo.SelLength, clBlack);
+  ResultMemo.SetRangeColor(
+    ResultMemo.SelStart, ResultMemo.SelLength,
+    clWhite);
 
   ResultMemo.SelStart := ResultMemo.GetTextLen;
   ResultMemo.SelLength := 0
