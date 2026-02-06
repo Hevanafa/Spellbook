@@ -290,8 +290,10 @@ begin
     dictFrequencyMap.add(term, makeFrequencyMap(term));
 
   { Manual positioning }
+  {
   self.left := screen.PrimaryMonitor.left;
   self.top := screen.PrimaryMonitor.top;
+  }
 end;
 
 procedure TForm1.FormClose(Sender: TObject; var CloseAction: TCloseAction);
