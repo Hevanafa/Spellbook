@@ -10,7 +10,7 @@ interface
 uses
   Classes, SysUtils, Forms, Controls,
   Graphics, Dialogs, StdCtrls,
-  DateUtils, LCLType, FGL;
+  DateUtils, LCLType, RichMemo, FGL;
 
 type
   TLetterFreq = array['A'..'Z'] of byte;
@@ -20,9 +20,9 @@ type
 
   TForm1 = class(TForm)
     BenchmarkLabel: TLabel;
+    ResultMemo: TRichMemo;
     SearchButton: TButton;
     InputEdit: TEdit;
-    ResultMemo: TMemo;
     procedure FormClose(Sender: TObject; var CloseAction: TCloseAction);
     procedure FormCreate(Sender: TObject);
     procedure InputEditKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
@@ -31,6 +31,8 @@ type
   private
     rawWordlist: TStringList;
     dictFrequencyMap: TDictFrequencyMap;
+
+    procedure appendHeading(const heading: string);
 
     function makeFrequencyMap(const word: string): TLetterFreq;
     procedure performSearch;
@@ -89,6 +91,22 @@ begin
   Result := length(s) = filterLen
 end;
 
+procedure TForm1.appendHeading(const heading: string);
+var
+  startPos, textLen: longint;
+begin
+  startPos := length(ResultMemo.text);
+  ResultMemo.lines.add(heading);
+  textLen := length(heading) + length(LineEnding);
+
+  ResultMemo.SetRangeParams(
+    startPos, textLen,
+    [tmm_Styles, tmm_Color],
+    '', 0, clGreen,
+    [fsBold], []
+  );
+end;
+
 procedure TForm1.performSearch;
 var
   inputFreq: TLetterFreq;
@@ -138,7 +156,8 @@ begin
     filtered := resultWordlist.filter(@filterByLength);
 
     if filtered.count > 0 then begin
-      ResultMemo.Lines.add(format('%d Letters:', [len]));
+      appendHeading(format('%d Letters AAA:', [len]));
+
       ResultMemo.Lines.AddStrings(filtered);
       ResultMemo.lines.Add('');
     end;

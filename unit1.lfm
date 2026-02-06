@@ -18,21 +18,13 @@ object Form1: TForm1
     TabOrder = 0
     OnKeyDown = InputEditKeyDown
   end
-  object ResultMemo: TMemo
-    Left = 8
-    Height = 192
-    Top = 40
-    Width = 243
-    ScrollBars = ssVertical
-    TabOrder = 1
-  end
   object SearchButton: TButton
     Left = 176
     Height = 25
     Top = 6
     Width = 75
     Caption = '&Search'
-    TabOrder = 2
+    TabOrder = 1
     OnClick = SearchButtonClick
   end
   object BenchmarkLabel: TLabel
@@ -41,5 +33,18 @@ object Form1: TForm1
     Top = 240
     Width = 88
     Caption = 'BenchmarkLabel'
+  end
+  object ResultMemo: TRichMemo
+    Left = 8
+    Height = 194
+    Top = 40
+    Width = 243
+    HideSelection = False
+    Lines.Strings = (
+      'ResultMemo'
+    )
+    ScrollBars = ssVertical
+    TabOrder = 2
+    ZoomFactor = 1
   end
 end

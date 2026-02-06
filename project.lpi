@@ -97,6 +97,12 @@
     </RunParams>
     <RequiredPackages>
       <Item>
+        <PackageName Value="richmemo_design"/>
+      </Item>
+      <Item>
+        <PackageName Value="richmemopackage"/>
+      </Item>
+      <Item>
         <PackageName Value="LCL"/>
       </Item>
     </RequiredPackages>
@@ -109,6 +115,7 @@
         <Filename Value="unit1.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="Form1"/>
+        <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="Unit1"/>
       </Unit>
