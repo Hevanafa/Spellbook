@@ -1,13 +1,13 @@
 object Form1: TForm1
   Left = 1850
-  Height = 240
+  Height = 307
   Top = 250
-  Width = 268
+  Width = 257
   BorderIcons = [biSystemMenu, biMinimize]
   BorderStyle = bsSingle
   Caption = 'Spellbook - By Hevanafa (Feb 2026)'
-  ClientHeight = 240
-  ClientWidth = 268
+  ClientHeight = 307
+  ClientWidth = 257
   OnClose = FormClose
   OnCreate = FormCreate
   object InputEdit: TEdit
@@ -22,7 +22,8 @@ object Form1: TForm1
     Left = 8
     Height = 192
     Top = 40
-    Width = 160
+    Width = 243
+    ScrollBars = ssVertical
     TabOrder = 1
   end
   object SearchButton: TButton
@@ -33,5 +34,12 @@ object Form1: TForm1
     Caption = '&Search'
     TabOrder = 2
     OnClick = SearchButtonClick
+  end
+  object BenchmarkLabel: TLabel
+    Left = 8
+    Height = 15
+    Top = 240
+    Width = 88
+    Caption = 'BenchmarkLabel'
   end
 end

@@ -19,6 +19,7 @@ type
   { TForm1 }
 
   TForm1 = class(TForm)
+    BenchmarkLabel: TLabel;
     SearchButton: TButton;
     InputEdit: TEdit;
     ResultMemo: TMemo;
@@ -95,6 +96,7 @@ var
   len: word;
   resultWordlist: TStringList;
   startTime: TDateTime;
+  searchTime, renderTime: longword;  { in milliseconds }
   shortest, longest: smallint;
   filtered: TStrings;
 begin
@@ -120,13 +122,13 @@ begin
       resultWordlist.Add(dictFrequencyMap.keys[idx]);
   end;
 
+  searchTime := MilliSecondsBetween(now, startTime);
+
   ResultMemo.lines.clear;
-  ResultMemo.Lines.add('Search time: ' + inttostr(MilliSecondsBetween(now, startTime)) + 'ms');
-  ResultMemo.lines.add('');
+  { ResultMemo.Lines.AddStrings(resultWordlist.text); }
 
   startTime := now;
   resultWordlist.CustomSort(@cmpLengthDesc);
-  { ResultMemo.Lines.AddStrings(resultWordlist.text); }
 
   longest := length(resultWordlist[0]);
   shortest := length(resultWordlist[resultWordlist.count - 1]);
@@ -144,10 +146,15 @@ begin
     filtered.free
   end;
 
-  { TODO: Add this as a bottom text label }
-  { ResultMemo.lines.add('Render time: ' + IntToStr(MilliSecondsBetween(now, startTime)) + 'ms'); }
+  ResultMemo.SelStart := 0;
+  ResultMemo.SelLength := 0;
 
-  { FreeAndNil(inputFreq); }
+  renderTime := MilliSecondsBetween(now, startTime);
+
+  BenchmarkLabel.Caption := format(
+    'Search time: %dms'#13#10'Render time: %dms'#13#10'Results: %d',
+    [searchTime, renderTime, resultWordlist.count]);
+
   FreeAndNil(resultWordlist);
 end;
 
