@@ -1,4 +1,6 @@
 # Build stuff
+dist/
+build/
 *.exe
 
 # Lazarus stuff
