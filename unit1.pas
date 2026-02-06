@@ -65,8 +65,6 @@ begin
   result := true;
 
   for c:='A' to 'Z' do begin
-    if wordFreq[c] = 0 then continue;
-
     if wordFreq[c] > inputFreq[c] then begin
       result := false; exit
     end;
@@ -77,7 +75,6 @@ procedure TForm1.performSearch;
 var
   inputFreq: TLetterFreq;
   idx: longword;
-  term: string;
   resultWordlist: TStringList;
   startTime: TDateTime;
 begin
@@ -98,14 +95,12 @@ begin
       application.ProcessMessages
     end;
 
-    term := dictFrequencyMap.keys[idx];
-
-    if canMakeWord(inputFreq, dictFrequencyMap[term]) then
-      resultWordlist.Add(term);
+    if canMakeWord(inputFreq, dictFrequencyMap.data[idx]) then
+      resultWordlist.Add(dictFrequencyMap.keys[idx]);
   end;
 
   ResultMemo.lines.clear;
-  ResultMemo.Lines.add('Search completed in ' + FormatDateTime('ss.zzz', now - startTime) + 's');
+  ResultMemo.Lines.add('Search completed in ' + FormatDateTime('n:ss.zzz', now - startTime) + 's');
   ResultMemo.Lines.AddStrings(resultWordlist.text);
 
   { FreeAndNil(inputFreq); }
