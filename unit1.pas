@@ -90,17 +90,20 @@ begin
   resultWordlist := TStringList.create;
 
   for idx:=0 to dictFrequencyMap.Count - 1 do begin
-    if idx and $3FF = 0 then begin
+    { if idx and $3FF = 0 then begin
       ResultMemo.lines.add('Progress: ' + inttostr(idx));
       application.ProcessMessages
-    end;
+    end; }
 
+    { term := dictFrequencyMap.keys[idx]; }
     if canMakeWord(inputFreq, dictFrequencyMap.data[idx]) then
       resultWordlist.Add(dictFrequencyMap.keys[idx]);
   end;
 
   ResultMemo.lines.clear;
   ResultMemo.Lines.add('Search completed in ' + FormatDateTime('n:ss.zzz', now - startTime) + 's');
+  ResultMemo.lines.add('');
+
   ResultMemo.Lines.AddStrings(resultWordlist.text);
 
   { FreeAndNil(inputFreq); }
@@ -151,7 +154,6 @@ end;
 
 procedure TForm1.FormClose(Sender: TObject; var CloseAction: TCloseAction);
 begin
-  rawWordlist.Clear;
   FreeAndNil(rawWordlist);
 end;
 
