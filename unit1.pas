@@ -104,7 +104,7 @@ begin
   ResultMemo.SetRangeParams(
     ResultMemo.SelStart, ResultMemo.SelLength,
     [tmm_Styles, tmm_Color],
-    '', 0, clGreen,
+    '', 0, TColor($9C5A00),
     [fsBold], []
   );
 
@@ -119,7 +119,7 @@ begin
 
   ResultMemo.SelText := txt + LineEnding;
 
-  ResultMemo.SetRangeColor(ResultMemo.SelStart, ResultMemo.SelLength, clGreen);
+  ResultMemo.SetRangeColor(ResultMemo.SelStart, ResultMemo.SelLength, clBlack);
 
   ResultMemo.SelStart := ResultMemo.GetTextLen;
   ResultMemo.SelLength := 0
