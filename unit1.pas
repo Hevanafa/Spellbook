@@ -15,6 +15,8 @@ uses
 type
   TLetterFreqMap = specialize TFPGMap<char, smallint>;
 
+  { TForm1 }
+
   TForm1 = class(TForm)
     SearchButton: TButton;
     InputEdit: TEdit;
@@ -22,10 +24,13 @@ type
     procedure FormClose(Sender: TObject; var CloseAction: TCloseAction);
     procedure FormCreate(Sender: TObject);
     procedure InputEditKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
+    procedure SearchButtonClick(Sender: TObject);
 
   private
     rawWordlist: TStringList;
     frequencyMap: specialize TFPGMap<string, TLetterFreqMap>;
+
+    procedure performSearch;
 
   public
 
@@ -40,10 +45,20 @@ implementation
 
 { TForm1 }
 
+procedure TForm1.performSearch;
+begin
+  ResultMemo.Text := UpperCase(InputEdit.text)
+end;
+
 procedure TForm1.InputEditKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
 begin
   if key = VK_RETURN then
-    ResultMemo.Text := UpperCase(InputEdit.text);
+    performSearch;
+end;
+
+procedure TForm1.SearchButtonClick(Sender: TObject);
+begin
+  performSearch
 end;
 
 procedure TForm1.FormCreate(Sender: TObject);
@@ -75,6 +90,7 @@ begin
   ResultMemo.Text := 'Loaded ' + inttostr(rawWordlist.count) + ' words';
 
   { Process the frequency list }
+  frequencyMap := specialize TFPGMap<string, TLetterFreqMap>.create;
   for term in rawWordlist do begin
     newFreqMapEntry := TLetterFreqMap.create;
 
