@@ -101,6 +101,9 @@
     </RunParams>
     <RequiredPackages>
       <Item>
+        <PackageName Value="bgracontrols"/>
+      </Item>
+      <Item>
         <PackageName Value="richmemo_design"/>
       </Item>
       <Item>

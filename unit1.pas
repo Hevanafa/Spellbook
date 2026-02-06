@@ -10,8 +10,9 @@ interface
 uses
   Classes, SysUtils, Forms, Controls,
   Graphics, Dialogs, StdCtrls,
-  DateUtils, LCLType, RichMemo, FGL,
-  LCLIntf;
+  DateUtils, LCLType, LCLIntf,
+  RichMemo, FGL,
+  BCButton, BCTypes, BCListBox;
 
 type
   TLetterFreq = array['A'..'Z'] of byte;
@@ -20,9 +21,9 @@ type
   { TForm1 }
 
   TForm1 = class(TForm)
+    SearchButton: TBCButton;
     BenchmarkLabel: TLabel;
     ResultMemo: TRichMemo;
-    SearchButton: TButton;
     InputEdit: TEdit;
     procedure FormClose(Sender: TObject; var CloseAction: TCloseAction);
     procedure FormCreate(Sender: TObject);
