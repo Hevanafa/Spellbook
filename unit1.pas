@@ -146,6 +146,8 @@ var
   shortest, longest: smallint;
   filtered: TStrings;
 begin
+  if trim(InputEdit.text) = '' then exit;
+
   startTime := now;
 
   ResultMemo.lines.clear;
