@@ -33,6 +33,7 @@ type
 
     function makeFrequencyMap(const word: string): TLetterFreq;
     procedure performSearch;
+    function filterByLength(const s: string): boolean;
 
   public
 
@@ -79,12 +80,23 @@ begin
     result := compareText(list[a], list[b]);
 end;
 
+var
+  filterLen: SmallInt;
+{ This must be attached to an object }
+function TForm1.filterByLength(const s: string): boolean;
+begin
+  Result := length(s) = filterLen
+end;
+
 procedure TForm1.performSearch;
 var
   inputFreq: TLetterFreq;
   idx: longword;
+  len: word;
   resultWordlist: TStringList;
   startTime: TDateTime;
+  shortest, longest: smallint;
+  filtered: TStrings;
 begin
   startTime := now;
   ResultMemo.Lines.add('Starting search...');
@@ -114,8 +126,26 @@ begin
 
   startTime := now;
   resultWordlist.CustomSort(@cmpLengthDesc);
-  ResultMemo.Lines.AddStrings(resultWordlist.text);
-  ResultMemo.lines.add('Render time: ' + IntToStr(MilliSecondsBetween(now, startTime)) + 'ms');
+  { ResultMemo.Lines.AddStrings(resultWordlist.text); }
+
+  longest := length(resultWordlist[0]);
+  shortest := length(resultWordlist[resultWordlist.count - 1]);
+
+  for len:=longest downto shortest do begin
+    filterLen := len;
+    filtered := resultWordlist.filter(@filterByLength);
+
+    if filtered.count > 0 then begin
+      ResultMemo.Lines.add(format('%d Letters:', [len]));
+      ResultMemo.Lines.AddStrings(filtered);
+      ResultMemo.lines.Add('');
+    end;
+
+    filtered.free
+  end;
+
+  { TODO: Add this as a bottom text label }
+  { ResultMemo.lines.add('Render time: ' + IntToStr(MilliSecondsBetween(now, startTime)) + 'ms'); }
 
   { FreeAndNil(inputFreq); }
   FreeAndNil(resultWordlist);
