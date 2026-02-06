@@ -3,7 +3,9 @@ object Form1: TForm1
   Height = 240
   Top = 250
   Width = 268
-  Caption = 'Form1'
+  BorderIcons = [biSystemMenu, biMinimize]
+  BorderStyle = bsSingle
+  Caption = 'Spellbook - By Hevanafa (Feb 2026)'
   ClientHeight = 240
   ClientWidth = 268
   OnClose = FormClose

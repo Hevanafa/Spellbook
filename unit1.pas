@@ -67,6 +67,8 @@ begin
 
   closeFile(f);
 
+  ResultMemo.Text := 'Loaded ' + inttostr(rawWordlist.count) + ' words';
+
   { TODO: Process the frequency list }
 end;
 
