@@ -32,7 +32,8 @@ type
     rawWordlist: TStringList;
     dictFrequencyMap: TDictFrequencyMap;
 
-    procedure appendHeading(const heading: string);
+    procedure appendHeading(const txt: string);
+    procedure appendText(const txt: string);
 
     function makeFrequencyMap(const word: string): TLetterFreq;
     procedure performSearch;
@@ -91,13 +92,13 @@ begin
   Result := length(s) = filterLen
 end;
 
-procedure TForm1.appendHeading(const heading: string);
+procedure TForm1.appendHeading(const txt: string);
 var
   startPos, textLen: longint;
 begin
   startPos := length(ResultMemo.text);
-  ResultMemo.lines.add(heading);
-  textLen := length(heading) + length(LineEnding);
+  ResultMemo.lines.add(txt);
+  textLen := length(txt) + length(LineEnding);
 
   ResultMemo.SetRangeParams(
     startPos, textLen,
@@ -105,6 +106,26 @@ begin
     '', 0, clGreen,
     [fsBold], []
   );
+end;
+
+procedure TForm1.appendText(const txt: string);
+var
+  startPos, textLen: longint;
+begin
+  startPos := ResultMemo.GetTextLen;
+  ResultMemo.lines.add(txt);
+  textLen := ResultMemo.GetTextLen - startPos;
+
+  ResultMemo.SetRangeColor(startPos, textLen, clRed);
+
+  {
+  ResultMemo.SetRangeParams(
+    0, ResultMemo.GetTextLen,
+    [tmm_Color],
+    '', 0, clRed,
+    [], []
+  );
+  }
 end;
 
 procedure TForm1.performSearch;
@@ -119,6 +140,8 @@ var
   filtered: TStrings;
 begin
   startTime := now;
+
+  ResultMemo.lines.clear;
   ResultMemo.Lines.add('Starting search...');
   ResultMemo.Lines.Add('Dict count: ' + IntToStr(dictFrequencyMap.Count));
   application.ProcessMessages;  { Force UI update }
@@ -156,7 +179,7 @@ begin
     filtered := resultWordlist.filter(@filterByLength);
 
     if filtered.count > 0 then begin
-      appendHeading(format('%d Letters AAA:', [len]));
+      appendHeading(format('%d Letters:', [len]));
 
       ResultMemo.Lines.AddStrings(filtered);
       ResultMemo.lines.Add('');
@@ -194,8 +217,10 @@ var
 begin
   rawWordlist := TStringList.create;
 
+  ResultMemo.lines.clear;
+
   if not FileExists('TWL06.txt') then begin
-    ResultMemo.Text := 'Couldn''t find the dictionary file TWL06.txt!';
+    appendText('Couldn''t find the dictionary file TWL06.txt!');
     ResultMemo.Enabled := false;
     exit
   end;
@@ -211,7 +236,9 @@ begin
 
   closeFile(f);
 
-  ResultMemo.Text := 'Loaded ' + inttostr(rawWordlist.count) + ' words';
+  appendText('Loaded ' + inttostr(rawWordlist.count) + ' words');
+
+  { ResultMemo.rtf := 'Lorem ipsum!'; }
 
   { Process the frequency list }
   dictFrequencyMap := TDictFrequencyMap.create;
