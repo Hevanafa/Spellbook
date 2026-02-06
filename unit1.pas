@@ -10,7 +10,8 @@ interface
 uses
   Classes, SysUtils, Forms, Controls,
   Graphics, Dialogs, StdCtrls,
-  DateUtils, LCLType, RichMemo, FGL;
+  DateUtils, LCLType, RichMemo, FGL,
+  LCLIntf;
 
 type
   TLetterFreq = array['A'..'Z'] of byte;
@@ -32,6 +33,8 @@ type
     rawWordlist: TStringList;
     dictFrequencyMap: TDictFrequencyMap;
 
+    procedure loadFontFromResource(const resname: string);
+
     procedure appendHeading(const txt: string);
     procedure appendText(const txt: string);
 
@@ -47,6 +50,10 @@ var
   Form1: TForm1;
 
 implementation
+
+uses Windows;
+
+function AddFontMemResourceEx(pbFont: pointer; cbFont: DWORD; pdv: pointer; pcFonts: PDWORD): THANDLE; stdcall; external 'gdi32.dll';
 
 {$R *.lfm}
 
@@ -206,13 +213,41 @@ begin
   performSearch
 end;
 
+procedure TForm1.loadFontFromResource(const resname: string);
+var
+  resStream: TResourceStream;
+  bytes: TBytes;
+  fontHandle: THandle;
+  numFonts: DWORD;
+begin
+  resStream := TResourceStream.create(HINSTANCE, resname, RT_RCDATA);
+
+  try
+    SetLength(bytes, resStream.size);
+    resStream.ReadBuffer(bytes[0], resStream.size);
+
+{$ifdef windows}
+    fontHandle := AddFontMemResourceEx(@bytes[0], length(bytes), nil, @numFonts);
+{$endif}
+  finally
+    resStream.free
+  end;
+end;
+
 procedure TForm1.FormCreate(Sender: TObject);
 var
   f: text;
   line, term: string;
 begin
-  rawWordlist := TStringList.create;
+  { Load resources }
+  loadFontFromResource('DROIDSANS');
+  loadFontFromResource('DROIDSANS-BOLD');
 
+  font.name := 'Droid Sans';
+  font.size := 10;
+
+  { Init app state }
+  rawWordlist := TStringList.create;
   ResultMemo.lines.clear;
 
   if not FileExists('TWL06.txt') then begin
