@@ -85,12 +85,9 @@ end;
 
 procedure TForm1.performSearch;
 var
-  inputFreq, termFreq: TLetterFreqMap;
-  c: Char;
+  inputFreq: TLetterFreqMap;
   idx: longword;
-  a: word;
   term: string;
-  skipWord: boolean;
   resultWordlist: TStringList;
 begin
   inputFreq := makeFrequencyMap(InputEdit.text);
@@ -125,9 +122,6 @@ procedure TForm1.FormCreate(Sender: TObject);
 var
   f: text;
   line, term: string;
-  c: char;
-  count: smallint;
-  newFreqMapEntry: TLetterFreqMap;
 begin
   rawWordlist := TStringList.create;
 
