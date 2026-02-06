@@ -64,10 +64,13 @@ var
 begin
   result := true;
 
-  for c:='A' to 'Z' do
+  for c:='A' to 'Z' do begin
+    if wordFreq[c] = 0 then continue;
+
     if wordFreq[c] > inputFreq[c] then begin
       result := false; exit
     end;
+  end;
 end;
 
 procedure TForm1.performSearch;
@@ -90,7 +93,7 @@ begin
   resultWordlist := TStringList.create;
 
   for idx:=0 to dictFrequencyMap.Count - 1 do begin
-    if idx mod 1000 = 0 then begin
+    if idx and $3FF = 0 then begin
       ResultMemo.lines.add('Progress: ' + inttostr(idx));
       application.ProcessMessages
     end;
