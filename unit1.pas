@@ -297,21 +297,8 @@ begin
   loadFontFromResource('DROIDSANS');
   loadFontFromResource('DROIDSANS-BOLD');
 
-  font.name := 'Droid Sans';
-  font.size := 10;
-
-  BenchmarkLabel.font.name := font.name;
-  BenchmarkLabel.font.size := font.size;
-
-  SearchButton.StateNormal.FontEx.name := font.name;
-  SearchButton.Font.size := font.size;
-  SearchButton.StateClicked.FontEx.name := font.name;
-  SearchButton.StateHover.FontEx.name := font.name;
-
-  { Init app state }
+  { Load the dictionary }
   rawWordlist := TStringList.create;
-  InputEdit.Text := '';
-  ResultMemo.lines.clear;
 
   if not FileExists('TWL06.txt') then begin
     appendText('Couldn''t find the dictionary file TWL06.txt!');
@@ -330,14 +317,35 @@ begin
 
   closeFile(f);
 
-  appendText('Loaded ' + inttostr(rawWordlist.count) + ' words');
-
-  { ResultMemo.rtf := 'Lorem ipsum!'; }
-
-  { Process the frequency list }
+  { Build the frequency list }
   dictFrequencyMap := TDictFrequencyMap.create;
   for term in rawWordlist do
     dictFrequencyMap.add(term, makeFrequencyMap(term));
+
+  { Init form elements }
+  font.name := 'Droid Sans';
+  font.size := 10;
+
+  BenchmarkLabel.font.name := font.name;
+  BenchmarkLabel.font.size := font.size;
+
+  SearchButton.StateNormal.FontEx.name := font.name;
+  SearchButton.StateNormal.FontEx.Height := font.size * 2;
+
+  { Apply the same font properties as StateNormal }
+  with SearchButton.StateNormal.FontEx do begin
+    SearchButton.StateClicked.FontEx.name := name;
+    SearchButton.StateClicked.FontEx.height := height;
+    SearchButton.StateHover.FontEx.name := name;
+    SearchButton.StateHover.FontEx.height := height;
+  end;
+
+  ScaleBy(150, 100);
+
+  InputEdit.Text := '';
+  ResultMemo.lines.clear;
+
+  appendText('Loaded ' + inttostr(rawWordlist.count) + ' words');
 
   { Manual positioning }
   {
