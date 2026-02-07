@@ -328,8 +328,30 @@ begin
 end;
 
 procedure TForm1.FormResize(Sender: TObject);
+var
+  origWidth, origHeight: smallint;
+  targetWidth, targetHeight: smallint;
+  ar: double;  { aspect ratio }
 begin
+  ar := 5 / 7;
 
+  origWidth := BackgroundPanel.width;
+  origHeight := BackgroundPanel.height;
+
+  if origWidth / origHeight > ar then begin
+    targetHeight := origHeight;
+    targetWidth := round(targetHeight * ar)
+  end else begin
+    targetWidth := origWidth;
+    targetHeight := round(targetWidth / ar)
+  end;
+
+  with ContentPanel do begin
+    width := targetWidth;
+    height := targetHeight;
+    left := (origWidth - targetWidth) div 2;
+    top := (origHeight - targetHeight) div 2
+  end;
 end;
 
 procedure TForm1.FormShow(Sender: TObject);
