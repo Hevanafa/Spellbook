@@ -155,6 +155,8 @@ var
 begin
   if trim(InputEdit.text) = '' then exit;
 
+  { This procedure uses figure spaces (#$2007) as the column delimiter }
+
   startTime := now;
 
   ResultMemo.lines.clear;
@@ -203,18 +205,20 @@ begin
       else begin
         bufferStr := '';
 
+        {$Warnings OFF}
         for a:=0 to filtered.count - 1 do begin
           bufferStr := bufferStr + filtered[a];
 
           if a < filtered.count - 1 then begin
             if (a + 1) mod 4 <> 0 then
-              bufferStr := bufferStr + #9
+              bufferStr := bufferStr + #$2007  { figure space, was a tab (#9) }
             else
               bufferStr := bufferStr + LineEnding;
           end;
         end;
 
         appendText(trimRight(bufferStr));
+        {$Warnings ON}
       end;
 
       { appendText(trimRight(
