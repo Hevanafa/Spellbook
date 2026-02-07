@@ -149,6 +149,7 @@ object Form1: TForm1
     EditLabel.Font.Style = [fsBold]
     ParentFont = True
     TabOrder = 0
+    Text = 'InputEdit'
     OnKeyDown = InputEditKeyDown
     Edit.Left = 5
     Edit.Height = 15
@@ -163,6 +164,7 @@ object Form1: TForm1
     Edit.DoubleBuffered = True
     Edit.ParentDoubleBuffered = False
     Edit.TabOrder = 0
+    Edit.Text = 'InputEdit'
     Edit.OnKeyDown = InputEditKeyDown
   end
 end

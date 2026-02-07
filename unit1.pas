@@ -189,7 +189,9 @@ begin
 
     if filtered.count > 0 then begin
       appendHeading(format('%d Letters', [len]));
-      appendText(trimRight(filtered.text));
+      appendText(trimRight(
+        StringReplace(filtered.text, LineEnding, #9, [rfReplaceAll])
+      ));
       appendText('')
     end;
 
@@ -261,6 +263,7 @@ begin
 
   { Init app state }
   rawWordlist := TStringList.create;
+  InputEdit.Text := '';
   ResultMemo.lines.clear;
 
   if not FileExists('TWL06.txt') then begin
