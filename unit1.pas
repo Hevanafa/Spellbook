@@ -223,11 +223,15 @@ begin
     if filtered.count > 0 then begin
       appendHeading(format('%d Letters', [len]));
 
-      if len >= 6 then
-        { trimRight is necessary because a newline is appended implicitly }
-        appendText(trimRight(filtered.text))
-      else
-        appendText(makeColumns(filtered, 4));
+      case len of
+        2..5:
+          appendText(makeColumns(filtered, 4));
+        6, 7, 8:
+          appendText(makeColumns(filtered, 3));
+        else
+          { trimRight is necessary because a newline is appended implicitly }
+          appendText(trimRight(filtered.text))
+      end;
 
       { appendText(trimRight(
         StringReplace(filtered.text, LineEnding, #9, [rfReplaceAll])
