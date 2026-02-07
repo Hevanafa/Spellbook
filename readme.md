@@ -10,10 +10,10 @@ This project is a remake of my older Spellbook written in C# from April 2020, no
 
 - Lazarus IDE v3.6
 
-### Online Packages
+### Extra Online Packages
 
-- [RichMemo](https://wiki.freepascal.org/RichMemo) widget
-- BGRAControls
+- [RichMemo](https://wiki.freepascal.org/RichMemo)
+- [BGRAControls](https://github.com/bgrabitmap/bgracontrols)
 
 ## Building
 
@@ -25,3 +25,4 @@ This project is a remake of my older Spellbook written in C# from April 2020, no
 
 - The word list uses `TWL06.txt` obtained from [Peter Norvig's website](https://norvig.com/ngrams/)
 - [Droid Sans Font](https://www.1001fonts.com/droid-sans-font.html)
+- I made the icons with [Aseprite](https://www.aseprite.org/) and [Greenfish Icon Editor](https://greenfishsoftware.org/gfie.php) to make the ICO
