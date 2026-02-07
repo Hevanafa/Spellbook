@@ -365,7 +365,7 @@ begin
 
   SearchButton.StateNormal.FontEx.name := font.name;
   { This should follow the ScaleBy procedure call }
-  { SearchButton.StateNormal.FontEx.Height := font.size * 2; }
+  SearchButton.StateNormal.FontEx.Height := round(font.height * 1.5);
 
   { Apply the same font properties as StateNormal }
   with SearchButton.StateNormal.FontEx do begin
@@ -375,13 +375,16 @@ begin
     SearchButton.StateHover.FontEx.height := height;
   end;
 
-  { ScaleBy(150, 100); }
+  ScaleBy(150, 100);
 
   InputEdit.Text := '';
   ResultMemo.lines.clear;
 
   BenchmarkLabel.Caption := 'Welcome!';
   appendText('Loaded ' + inttostr(rawWordlist.count) + ' words');
+
+  { Debug font height }
+  appendText(inttostr(SearchButton.StateNormal.FontEx.Height) + ' ' + inttostr(font.height));
 
   { Manual positioning }
   {
