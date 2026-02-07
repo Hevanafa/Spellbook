@@ -199,13 +199,14 @@ begin
         bufferStr := '';
 
         for a:=0 to filtered.count - 1 do begin
-          if a < filtered.count - 1 then
-            bufferStr := bufferStr + filtered[a] + #9
-          else
-            bufferStr := bufferStr + filtered[a];
+          bufferStr := bufferStr + filtered[a];
 
-          if (a > 0) and (((a + 1) mod 4) = 0) then
-            bufferStr := bufferStr + LineEnding;
+          if a < filtered.count - 1 then begin
+            if (a + 1) mod 4 <> 0 then
+              bufferStr := bufferStr + #9
+            else
+              bufferStr := bufferStr + LineEnding;
+          end;
         end;
 
         appendText(trimRight(bufferStr));
