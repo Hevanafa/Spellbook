@@ -193,7 +193,8 @@ begin
       appendHeading(format('%d Letters', [len]));
 
       if len >= 6 then
-        appendText(filtered.text)
+        { trimRight is necessary because a newline is appended implicitly }
+        appendText(trimRight(filtered.text))
       else begin
         bufferStr := '';
 
@@ -203,11 +204,11 @@ begin
           else
             bufferStr := bufferStr + filtered[a];
 
-          if (a > 0) and ((a and 4) = 0) then
+          if (a > 0) and (((a + 1) mod 4) = 0) then
             bufferStr := bufferStr + LineEnding;
         end;
 
-        appendText(bufferStr);
+        appendText(trimRight(bufferStr));
       end;
 
       { appendText(trimRight(
