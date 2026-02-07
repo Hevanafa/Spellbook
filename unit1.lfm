@@ -1,13 +1,13 @@
 object Form1: TForm1
   Left = 1850
-  Height = 357
+  Height = 385
   Top = 250
-  Width = 288
+  Width = 275
   BorderIcons = [biSystemMenu, biMinimize]
   BorderStyle = bsSingle
   Caption = 'Spellbook - By Hevanafa (Feb 2026)'
-  ClientHeight = 357
-  ClientWidth = 288
+  ClientHeight = 385
+  ClientWidth = 275
   Color = 1052174
   DefaultMonitor = dmPrimary
   Font.Color = clWhite
@@ -18,18 +18,18 @@ object Form1: TForm1
   Position = poScreenCenter
   object BenchmarkLabel: TLabel
     Left = 8
-    Height = 15
-    Top = 272
-    Width = 53
-    Caption = 'Welcome!'
+    Height = 45
+    Top = 296
+    Width = 31
+    Caption = 'Line 1'#13#10'Line 2'#13#10'Line 3'
     Font.Color = clWhite
     ParentFont = False
   end
   object ResultMemo: TRichMemo
     Left = 8
-    Height = 194
+    Height = 210
     Top = 64
-    Width = 267
+    Width = 256
     BorderStyle = bsNone
     Color = 3880757
     HideSelection = False
@@ -39,10 +39,10 @@ object Form1: TForm1
     ZoomFactor = 1
   end
   object SearchButton: TBCButton
-    Left = 192
+    Left = 184
     Height = 41
-    Top = 8
-    Width = 83
+    Top = 9
+    Width = 80
     StateClicked.Background.Color = 6942887
     StateClicked.Background.Gradient1.StartColor = 8404992
     StateClicked.Background.Gradient1.EndColor = 4194304
@@ -136,19 +136,20 @@ object Form1: TForm1
     Left = 8
     Height = 42
     Top = 8
-    Width = 178
+    Width = 168
     AccentColor = 6942887
     Caption = 'Unscramble'
     Color = 3880757
     DisabledColor = 12103592
     DoubleBuffered = True
     EditLabel.Height = 15
-    EditLabel.Width = 168
+    EditLabel.Width = 158
     EditLabel.Caption = 'Unscramble'
     EditLabel.ParentFont = False
     EditLabel.Font.Color = 12103592
     EditLabel.Font.Style = [fsBold]
     ParentFont = True
+    ShowHint = True
     TabOrder = 0
     Text = 'InputEdit'
     OnChange = InputEditChange
@@ -156,7 +157,7 @@ object Form1: TForm1
     Edit.Left = 5
     Edit.Height = 15
     Edit.Top = 22
-    Edit.Width = 168
+    Edit.Width = 158
     Edit.Align = alBottom
     Edit.BorderSpacing.Left = 4
     Edit.BorderSpacing.Right = 4

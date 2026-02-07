@@ -10,7 +10,7 @@ interface
 uses
   Classes, SysUtils, Forms, Controls,
   Graphics, Dialogs, StdCtrls,
-  DateUtils, LCLType, LCLIntf,
+  DateUtils, LCLType, LCLIntf, ExtCtrls,
   RichMemo, FGL,
   BCButton, BCTypes, BCListBox, BCMaterialEdit, BGRACustomDrawn;
 
@@ -349,6 +349,7 @@ begin
   InputEdit.Text := '';
   ResultMemo.lines.clear;
 
+  BenchmarkLabel.Caption := 'Welcome!';
   appendText('Loaded ' + inttostr(rawWordlist.count) + ' words');
 
   { Manual positioning }
