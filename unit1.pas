@@ -145,6 +145,8 @@ var
   searchTime, renderTime: longword;  { in milliseconds }
   shortest, longest: smallint;
   filtered: TStrings;
+  bufferStr: string;
+  a: word;
 begin
   if trim(InputEdit.text) = '' then exit;
 
@@ -189,9 +191,29 @@ begin
 
     if filtered.count > 0 then begin
       appendHeading(format('%d Letters', [len]));
-      appendText(trimRight(
+
+      if len >= 6 then
+        appendText(filtered.text)
+      else begin
+        bufferStr := '';
+
+        for a:=0 to filtered.count - 1 do begin
+          if a < filtered.count - 1 then
+            bufferStr := bufferStr + filtered[a] + #9
+          else
+            bufferStr := bufferStr + filtered[a];
+
+          if (a > 0) and ((a and 4) = 0) then
+            bufferStr := bufferStr + LineEnding;
+        end;
+
+        appendText(bufferStr);
+      end;
+
+      { appendText(trimRight(
         StringReplace(filtered.text, LineEnding, #9, [rfReplaceAll])
-      ));
+      )); }
+
       appendText('')
     end;
 
