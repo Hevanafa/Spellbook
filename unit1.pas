@@ -225,8 +225,10 @@ begin
       case len of
         2..5:
           appendText(makeColumns(filtered, 4));
-        6, 7, 8:
+        6, 7:
           appendText(makeColumns(filtered, 3));
+        8, 9:
+          appendText(makeColumns(filtered, 2));
         else
           { trimRight is necessary because a newline is appended implicitly }
           appendText(trimRight(filtered.text))
