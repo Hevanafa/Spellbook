@@ -22,6 +22,7 @@ type
 
   TForm1 = class(TForm)
     InputEdit: TBCMaterialEdit;
+    Panel1: TPanel;
     SearchButton: TBCButton;
     BenchmarkLabel: TLabel;
     ResultMemo: TRichMemo;
@@ -334,7 +335,8 @@ begin
   BenchmarkLabel.font.size := font.size;
 
   SearchButton.StateNormal.FontEx.name := font.name;
-  SearchButton.StateNormal.FontEx.Height := font.size * 2;
+  { This should follow the ScaleBy procedure call }
+  { SearchButton.StateNormal.FontEx.Height := font.size * 2; }
 
   { Apply the same font properties as StateNormal }
   with SearchButton.StateNormal.FontEx do begin
@@ -344,7 +346,7 @@ begin
     SearchButton.StateHover.FontEx.height := height;
   end;
 
-  ScaleBy(150, 100);
+  { ScaleBy(150, 100); }
 
   InputEdit.Text := '';
   ResultMemo.lines.clear;
