@@ -140,6 +140,30 @@ begin
   ResultMemo.SelLength := 0
 end;
 
+function makeColumns(const words: TStrings; columns: SmallInt = 1): string;
+var
+  a: word;
+begin
+  if columns < 1 then columns := 1;
+
+  result := '';
+
+  {$Warnings OFF}
+  for a:=0 to words.count - 1 do begin
+    result := result + words[a];
+
+    if a < words.count - 1 then begin
+      if (a + 1) mod columns <> 0 then
+        result := result + #$2007  { figure space, was a tab (#9) }
+      else
+        result := result + LineEnding;
+    end;
+  end;
+
+  result := trimRight(result)
+  {$Warnings ON}
+end;
+
 procedure TForm1.performSearch;
 var
   inputFreq: TLetterFreq;
@@ -202,24 +226,8 @@ begin
       if len >= 6 then
         { trimRight is necessary because a newline is appended implicitly }
         appendText(trimRight(filtered.text))
-      else begin
-        bufferStr := '';
-
-        {$Warnings OFF}
-        for a:=0 to filtered.count - 1 do begin
-          bufferStr := bufferStr + filtered[a];
-
-          if a < filtered.count - 1 then begin
-            if (a + 1) mod 4 <> 0 then
-              bufferStr := bufferStr + #$2007  { figure space, was a tab (#9) }
-            else
-              bufferStr := bufferStr + LineEnding;
-          end;
-        end;
-
-        appendText(trimRight(bufferStr));
-        {$Warnings ON}
-      end;
+      else
+        appendText(makeColumns(filtered, 4));
 
       { appendText(trimRight(
         StringReplace(filtered.text, LineEnding, #9, [rfReplaceAll])
