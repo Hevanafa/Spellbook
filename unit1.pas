@@ -244,15 +244,22 @@ procedure TForm1.InputEditChange(Sender: TObject);
 var
   a: smallint;
   cleaned: string;
+  lastEditPos: smallint;
 begin
+  if InputEdit.text = '' then exit;
+
   cleaned := '';
+
+  lastEditPos := InputEdit.Edit.SelStart;
 
   for a:=1 to length(InputEdit.text) do
     if InputEdit.text[a] in ['a'..'z', 'A'..'Z'] then
-         cleaned := cleaned + InputEdit.text[a];
+      cleaned := cleaned + InputEdit.text[a];
 
-  if cleaned <> InputEdit.text then
+  if cleaned <> InputEdit.text then begin
     InputEdit.text := cleaned;
+    InputEdit.edit.SelStart := lastEditPos
+  end;
 end;
 
 procedure TForm1.SearchButtonClick(Sender: TObject);
