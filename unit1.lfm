@@ -6,7 +6,7 @@ object Form1: TForm1
   Caption = 'Spellbook - By Hevanafa (Feb 2026)'
   ClientHeight = 405
   ClientWidth = 293
-  Color = 1052174
+  Color = 1841176
   Constraints.MinHeight = 385
   Constraints.MinWidth = 275
   DefaultMonitor = dmPrimary
@@ -34,10 +34,13 @@ object Form1: TForm1
       Height = 385
       Top = 8
       Width = 275
+      BevelOuter = bvNone
       Caption = 'ContentPanel'
       ClientHeight = 385
       ClientWidth = 275
+      Color = 2957857
       ParentBackground = False
+      ParentColor = False
       TabOrder = 0
       object InputEdit: TBCMaterialEdit
         Left = 8
@@ -45,6 +48,7 @@ object Form1: TForm1
         Top = 8
         Width = 168
         AccentColor = 6942887
+        Anchors = [akTop, akLeft, akRight]
         Caption = 'Unscramble'
         Color = 3880757
         DisabledColor = 12103592
@@ -83,6 +87,7 @@ object Form1: TForm1
         Height = 41
         Top = 9
         Width = 80
+        Anchors = [akTop, akRight]
         StateClicked.Background.Color = 6942887
         StateClicked.Background.Gradient1.StartColor = 8404992
         StateClicked.Background.Gradient1.EndColor = 4194304
@@ -177,6 +182,7 @@ object Form1: TForm1
         Height = 210
         Top = 64
         Width = 256
+        Anchors = [akTop, akLeft, akRight, akBottom]
         BorderStyle = bsNone
         Color = 3880757
         HideSelection = False
@@ -188,8 +194,10 @@ object Form1: TForm1
       object BenchmarkLabel: TLabel
         Left = 8
         Height = 45
-        Top = 296
-        Width = 31
+        Top = 323
+        Width = 256
+        Anchors = [akLeft, akRight, akBottom]
+        AutoSize = False
         Caption = 'Line 1'#13#10'Line 2'#13#10'Line 3'
         Font.Color = clWhite
         ParentFont = False
