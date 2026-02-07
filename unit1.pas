@@ -25,10 +25,11 @@ type
     SearchButton: TBCButton;
     BenchmarkLabel: TLabel;
     ResultMemo: TRichMemo;
+    procedure FormCreate(Sender: TObject);
+    procedure FormShow(Sender: TObject);
+    procedure FormClose(Sender: TObject; var CloseAction: TCloseAction);
     procedure InputEditChange(Sender: TObject);
     procedure InputEditKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
-    procedure FormClose(Sender: TObject; var CloseAction: TCloseAction);
-    procedure FormCreate(Sender: TObject);
     procedure SearchButtonClick(Sender: TObject);
 
   private
@@ -321,8 +322,11 @@ begin
   dictFrequencyMap := TDictFrequencyMap.create;
   for term in rawWordlist do
     dictFrequencyMap.add(term, makeFrequencyMap(term));
+end;
 
-  { Init form elements }
+procedure TForm1.FormShow(Sender: TObject);
+begin
+  { Init UI elements }
   font.name := 'Droid Sans';
   font.size := 10;
 
