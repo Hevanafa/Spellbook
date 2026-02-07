@@ -7,6 +7,8 @@ object Form1: TForm1
   ClientHeight = 405
   ClientWidth = 293
   Color = 1052174
+  Constraints.MinHeight = 385
+  Constraints.MinWidth = 275
   DefaultMonitor = dmPrimary
   Font.Color = clWhite
   KeyPreview = True
