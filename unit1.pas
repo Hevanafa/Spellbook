@@ -148,20 +148,19 @@ begin
 
   result := '';
 
-  {$Warnings OFF}
   for a:=0 to words.count - 1 do begin
     result := result + words[a];
 
     if a < words.count - 1 then begin
       if (a + 1) mod columns <> 0 then
-        result := result + #$2007  { figure space, was a tab (#9) }
+        { This can use either the figure space #$2007, or a tab (#9) }
+        result := result + '   '
       else
         result := result + LineEnding;
     end;
   end;
 
   result := trimRight(result)
-  {$Warnings ON}
 end;
 
 procedure TForm1.performSearch;
