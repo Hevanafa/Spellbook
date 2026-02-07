@@ -25,6 +25,7 @@ type
     SearchButton: TBCButton;
     BenchmarkLabel: TLabel;
     ResultMemo: TRichMemo;
+    procedure InputEditChange(Sender: TObject);
     procedure InputEditKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure FormClose(Sender: TObject; var CloseAction: TCloseAction);
     procedure FormCreate(Sender: TObject);
@@ -237,6 +238,21 @@ end;
 procedure TForm1.InputEditKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
 begin
   if key = VK_RETURN then performSearch;
+end;
+
+procedure TForm1.InputEditChange(Sender: TObject);
+var
+  a: smallint;
+  cleaned: string;
+begin
+  cleaned := '';
+
+  for a:=1 to length(InputEdit.text) do
+    if InputEdit.text[a] in ['a'..'z', 'A'..'Z'] then
+         cleaned := cleaned + InputEdit.text[a];
+
+  if cleaned <> InputEdit.text then
+    InputEdit.text := cleaned;
 end;
 
 procedure TForm1.SearchButtonClick(Sender: TObject);
