@@ -1,17 +1,11 @@
 program project;
 
-{$mode objfpc}{$H+}
+{$Mode ObjFPC}
+{$H+}
 
 uses
-  {$IFDEF UNIX}
-  cthreads,
-  {$ENDIF}
-  {$IFDEF HASAMIGA}
-  athreads,
-  {$ENDIF}
-  Interfaces, // this includes the LCL widgetset
-  Forms, unit1
-  { you can add units after this };
+  Interfaces, { This includes the LCL widgetset }
+  Forms, Unit1;
 
 {$R *.res}
 

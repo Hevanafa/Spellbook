@@ -527,6 +527,7 @@ object Form1: TForm1
         EditLabel.Font.Color = 12103592
         EditLabel.Font.Style = [fsBold]
         ParentFont = True
+        ShowHint = True
         TabOrder = 0
         Text = 'InputEdit'
         OnChange = InputEditChange
