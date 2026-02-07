@@ -22,11 +22,13 @@ type
 
   TForm1 = class(TForm)
     InputEdit: TBCMaterialEdit;
-    Panel1: TPanel;
+    ContentPanel: TPanel;
+    BackgroundPanel: TPanel;
     SearchButton: TBCButton;
     BenchmarkLabel: TLabel;
     ResultMemo: TRichMemo;
     procedure FormCreate(Sender: TObject);
+    procedure FormResize(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure FormClose(Sender: TObject; var CloseAction: TCloseAction);
     procedure InputEditChange(Sender: TObject);
@@ -323,6 +325,11 @@ begin
   dictFrequencyMap := TDictFrequencyMap.create;
   for term in rawWordlist do
     dictFrequencyMap.add(term, makeFrequencyMap(term));
+end;
+
+procedure TForm1.FormResize(Sender: TObject);
+begin
+
 end;
 
 procedure TForm1.FormShow(Sender: TObject);
